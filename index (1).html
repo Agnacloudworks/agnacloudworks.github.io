@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agna 3D Designs Pvt Ltd</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --orange: #E85A0E;
+      --dark: #111111;
+      --light: #F5F5F0;
+      --gray: #888;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Source Sans 3', sans-serif;
+      background: var(--light);
+      color: var(--dark);
+    }
+
+    /* HEADER */
+    header {
+      background: var(--dark);
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    header img { height: 70px; }
+    header h1 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 2rem;
+      color: #fff;
+      letter-spacing: 1px;
+    }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, #1a1a1a 0%, #2d1a00 100%);
+      color: #fff;
+      padding: 70px 40px;
+      text-align: center;
+    }
+    .hero h2 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 2.6rem;
+      color: var(--orange);
+      margin-bottom: 14px;
+    }
+    .hero p {
+      font-size: 1.1rem;
+      color: #ccc;
+      max-width: 700px;
+      margin: auto;
+      line-height: 1.7;
+    }
+
+    /* SERVICES */
+    .section {
+      padding: 60px 40px;
+      max-width: 1100px;
+      margin: auto;
+    }
+    .section h2 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 2rem;
+      margin-bottom: 30px;
+      border-left: 4px solid var(--orange);
+      padding-left: 14px;
+    }
+    .services {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 18px;
+    }
+    .card {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      padding: 22px 18px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::before {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 3px;
+      background: var(--orange);
+      transition: width 0.3s ease;
+    }
+    .card:hover::before { width: 100%; }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+      border-color: var(--orange);
+    }
+    .card-icon { font-size: 2rem; margin-bottom: 10px; }
+    .card h3 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.2rem;
+      margin-bottom: 6px;
+    }
+    .card p { font-size: 0.85rem; color: var(--gray); line-height: 1.5; }
+    .card .click-hint {
+      font-size: 0.75rem;
+      color: var(--orange);
+      margin-top: 10px;
+      font-weight: 600;
+    }
+
+    /* CONTACT */
+    .contact-section {
+      background: var(--dark);
+      color: #fff;
+      padding: 50px 40px;
+      text-align: center;
+    }
+    .contact-section h2 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 2rem;
+      color: var(--orange);
+      margin-bottom: 20px;
+    }
+    .contact-section p { margin: 8px 0; font-size: 1rem; color: #ccc; }
+    .contact-section a { color: var(--orange); text-decoration: none; }
+
+    /* FOOTER */
+    footer {
+      background: #000;
+      color: #555;
+      text-align: center;
+      padding: 18px;
+      font-size: 0.85rem;
+    }
+
+    /* MODAL */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+    }
+    .modal-overlay.active { display: flex; }
+    .modal {
+      background: #fff;
+      border-radius: 14px;
+      padding: 40px;
+      max-width: 560px;
+      width: 90%;
+      position: relative;
+      animation: popIn 0.25s ease;
+    }
+    @keyframes popIn {
+      from { transform: scale(0.85); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .modal-close {
+      position: absolute;
+      top: 16px; right: 20px;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--gray);
+      background: none;
+      border: none;
+    }
+    .modal-icon { font-size: 2.5rem; margin-bottom: 12px; }
+    .modal h3 {
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1.7rem;
+      color: var(--orange);
+      margin-bottom: 12px;
+    }
+    .modal p { color: #444; line-height: 1.7; margin-bottom: 10px; }
+    .modal ul {
+      padding-left: 18px;
+      color: #444;
+      line-height: 1.9;
+    }
+    .modal-cta {
+      display: inline-block;
+      margin-top: 20px;
+      background: var(--orange);
+      color: #fff;
+      padding: 10px 24px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: 600;
+      font-family: 'Rajdhani', sans-serif;
+      font-size: 1rem;
+      letter-spacing: 0.5px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <img src="logo.jpg" alt="Agna Logo">
+  <h1>Agna 3D Designs Pvt Ltd</h1>
+</header>
+
+<div class="hero">
+  <h2>Point Cloud to 3D Modeling Experts</h2>
+  <p>Specialized in Oil & Gas Plants and Industrial Plant Modeling using Leica Cyclone, Revit and AutoCAD.</p>
+</div>
+
+<div class="section">
+  <h2>Our Services</h2>
+  <div class="services">
+
+    <div class="card" onclick="openModal('pcp')">
+      <div class="card-icon">🔵</div>
+      <h3>Point Cloud Processing</h3>
+      <p>Accurate processing of raw scan data into clean, usable point clouds.</p>
+      <div class="click-hint">Click to know more →</div>
+    </div>
+
+    <div class="card" onclick="openModal('pc3d')">
+      <div class="card-icon">🏭</div>
+      <h3>Point Cloud to 3D Modeling</h3>
+      <p>Converting laser scan data into precise 3D plant models.</p>
+      <div class="click-hint">Click to know more →</div>
+    </div>
+
+    <div class="card" onclick="openModal('leica')">
+      <div class="card-icon">📡</div>
+      <h3>Leica Cyclone Services</h3>
+      <p>Expert modeling using Leica Cyclone MODEL software.</p>
+      <div class="click-hint">Click to know more →</div>
+    </div>
+
+    <div class="card" onclick="openModal('revit')">
+      <div class="card-icon">🏗️</div>
+      <h3>Revit Modeling</h3>
+      <p>BIM-ready Revit models for industrial and plant facilities.</p>
+      <div class="click-hint">Click to know more →</div>
+    </div>
+
+    <div class="card" onclick="openModal('autocad')">
+      <div class="card-icon">📐</div>
+      <h3>AutoCAD Drafting</h3>
+      <p>Precise 2D/3D drawings and drafting in AutoCAD format.</p>
+      <div class="click-hint">Click to know more →</div>
+    </div>
+
+    <div class="card" onclick="openModal('ipm')">
+      <div class="card-icon">⚙️</div>
+      <h3>Industrial Plant Modeling</h3>
+      <p>Complete 3D models of oil & gas and industrial plants.</p>
+      <div class="click-hint">Click to know more →</div>
+    </div>
+
+  </div>
+</div>
+
+<div class="contact-section">
+  <h2>Contact Us</h2>
+  <p>📞 <strong>Phone:</strong> <a href="tel:7989373336">7989373336</a></p>
+  <p>✉️ <strong>Email:</strong> <a href="mailto:agnacloudworks@gmail.com">agnacloudworks@gmail.com</a></p>
+</div>
+
+<footer>© Agna 3D Designs Pvt Ltd</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" id="modalBox">
+    <button class="modal-close" onclick="closeModalBtn()">✕</button>
+    <div class="modal-icon" id="modalIcon"></div>
+    <h3 id="modalTitle"></h3>
+    <div id="modalBody"></div>
+    <a href="https://mail.google.com/mail/?view=cm&to=agnacloudworks@gmail.com&su=Enquiry from Website" target="_blank" class="modal-cta">Enquire Now</a>
+  </div>
+</div>
+
+<script>
+  const services = {
+    pcp: {
+      icon: '🔵',
+      title: 'Point Cloud Processing',
+      body: `
+        <p>We process raw laser scan data (from Leica, FARO, Trimble scanners) into clean, registered, and usable point clouds ready for modeling.</p>
+        <ul>
+          <li>Scan registration & alignment</li>
+          <li>Noise filtering & cleaning</li>
+          <li>Point cloud segmentation</li>
+          <li>Output in RCP, RCS, E57, PTX formats</li>
+          <li>Suitable for oil & gas, power, and chemical plants</li>
+        </ul>
+      `
+    },
+    pc3d: {
+      icon: '🏭',
+      title: 'Point Cloud to 3D Modeling',
+      body: `
+        <p>We convert laser scan point cloud data into accurate, intelligent 3D plant models for engineering, maintenance, and design purposes.</p>
+        <ul>
+          <li>Piping systems (ANSI standards)</li>
+          <li>Steel structures (AISC, IS, BS, DIN)</li>
+          <li>Equipment & vessels modeling</li>
+          <li>Deliverables in .DWG format</li>
+          <li>As-built documentation</li>
+        </ul>
+      `
+    },
+    leica: {
+      icon: '📡',
+      title: 'Leica Cyclone Services',
+      body: `
+        <p>Our team specializes in Leica Cyclone MODEL — the industry-leading software for point cloud to 3D model conversion in industrial plants.</p>
+        <ul>
+          <li>Leica Cyclone MODEL expert operators</li>
+          <li>Piping, structure & equipment modeling</li>
+          <li>High accuracy as-built models</li>
+          <li>Fast turnaround for large plant projects</li>
+          <li>Oil & gas, refinery, petrochemical plants</li>
+        </ul>
+      `
+    },
+    revit: {
+      icon: '🏗️',
+      title: 'Revit Modeling',
+      body: `
+        <p>We create BIM-ready Revit models from point cloud data for industrial facilities, enabling clash detection and better project coordination.</p>
+        <ul>
+          <li>Point cloud to Revit conversion</li>
+          <li>MEP & structural modeling</li>
+          <li>BIM Level 2 & 3 deliverables</li>
+          <li>Clash detection ready models</li>
+          <li>Plant & industrial facility modeling</li>
+        </ul>
+      `
+    },
+    autocad: {
+      icon: '📐',
+      title: 'AutoCAD Drafting',
+      body: `
+        <p>We produce precise 2D and 3D AutoCAD drawings from point cloud data and 3D models for engineering and construction use.</p>
+        <ul>
+          <li>2D plan, elevation & section drawings</li>
+          <li>3D AutoCAD plant models</li>
+          <li>Isometric piping drawings</li>
+          <li>As-built drawing preparation</li>
+          <li>DWG format deliverables</li>
+        </ul>
+      `
+    },
+    ipm: {
+      icon: '⚙️',
+      title: 'Industrial Plant Modeling',
+      body: `
+        <p>Complete 3D modeling solutions for oil & gas, refinery, petrochemical, and other industrial plant facilities from laser scan data.</p>
+        <ul>
+          <li>Oil & gas plant modeling</li>
+          <li>Refinery & petrochemical plants</li>
+          <li>Power plant modeling</li>
+          <li>Piping, structure & equipment</li>
+          <li>Brownfield & greenfield projects</li>
+        </ul>
+      `
+    }
+  };
+
+  function openModal(key) {
+    const s = services[key];
+    document.getElementById('modalIcon').textContent = s.icon;
+    document.getElementById('modalTitle').textContent = s.title;
+    document.getElementById('modalBody').innerHTML = s.body;
+    document.getElementById('modalOverlay').classList.add('active');
+  }
+
+  function closeModal(e) {
+    if (e.target === document.getElementById('modalOverlay')) {
+      document.getElementById('modalOverlay').classList.remove('active');
+    }
+  }
+
+  function closeModalBtn() {
+    document.getElementById('modalOverlay').classList.remove('active');
+  }
+</script>
+
+</body>
+</html>
